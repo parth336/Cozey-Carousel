@@ -1,0 +1,153 @@
+// Variables
+$primary-color: #4f6076;
+$secondary-color: #0b2341;
+$background-color: #ecebe7;
+$active-border-color: #69a2ff;
+$button-hover-color: #e5e6e4;
+
+$font-family: "Haffer XH", sans-serif;
+
+$carousel-padding: 20px;
+$carousel-item-width: 300px;
+$carousel-item-height: 500px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button-reset {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+// Styles
+.video-carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $background-color;
+
+  .carousel-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+    color: $primary-color;
+    padding-left: $carousel-padding;
+    font-family: $font-family;
+  }
+
+  .carousel-container {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    gap: 16px;
+    padding: 0 $carousel-padding;
+    overflow: hidden;
+  }
+
+  .carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .carousel-buttons {
+    display: flex;
+    gap: 10px;
+
+    > button {
+      @include button-reset;
+      @include flex-center;
+      border: 1px solid transparent;
+      padding: 0;
+      background-color: white !important;
+      border-radius: 50%;
+      color: $secondary-color;
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .carousel-item {
+    flex: 0 0 $carousel-item-width;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 12px;
+    overflow: hidden;
+
+    &.active .video-wrapper {
+      border: 2px solid $active-border-color;
+      border-radius: 18px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: $carousel-item-width;
+      height: $carousel-item-height;
+      border-radius: 11px;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-title {
+      font-size: 14px;
+      color: $primary-color;
+      text-align: left;
+      padding: 10px 0;
+      margin: 0;
+    }
+  }
+
+  .video-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > img {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+      border-radius: 50%;
+    }
+  }
+
+  .carousel-button {
+    @include button-reset;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f7f8f6;
+    color: $secondary-color;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 24px;
+    @include flex-center;
+
+    &:hover {
+      background-color: $button-hover-color;
+    }
+
+    &.prev {
+      left: $carousel-padding;
+    }
+
+    &.next {
+      right: $carousel-padding;
+    }
+  }
+}
